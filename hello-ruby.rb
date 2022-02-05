@@ -19,7 +19,7 @@ Curses.nl
 Curses.noecho
 Curses.curs_set 0
 
-ITERS = 28
+ITERS = 80
 EPSILON = 0.001
 
 $palette = nil
@@ -76,8 +76,9 @@ def sdOctahedron(p, s)
   return Vector[qx,qy-s+k,qz-k].magnitude
 end
 
+
 def scene(p) 
-  return sdOctahedron(p, 0.8)
+  return sdOctahedron(p, 2)
 end
 
 def getCameraRayDir(x,y, camPos, camTarget, fPersp = 2.0)
@@ -118,12 +119,13 @@ end
 
 def draw(camPos, camTarget)
   aspectRatio = Curses.cols / Curses.lines
+  zoom = 2
   Curses.lines.times do |y|
     Curses.cols.times do |x|
       x0 = (x - Curses.cols / 2.0) / (Curses.cols / 2.0)
-      y0 = (y - Curses.lines / 2.0) / (Curses.cols / 2.0)
-      x0 *= 0.5 * aspectRatio
-      y0 *= 2
+      y0 = (y - Curses.lines / 2.0) / (Curses.lines / 2.0)
+      x0 *= zoom * aspectRatio
+      y0 *= zoom
       rayDir = getCameraRayDir(x0, y0, camPos, camTarget)
       t = castRay(camPos, rayDir)
       result = 0
