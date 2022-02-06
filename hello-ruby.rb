@@ -124,7 +124,7 @@ def draw(camPos, camTarget)
     Curses.cols.times do |x|
       x0 = (x - Curses.cols / 2.0) / (Curses.cols / 2.0)
       y0 = (y - Curses.lines / 2.0) / (Curses.lines / 2.0)
-      x0 *= zoom * aspectRatio
+      x0 *= 0.6 * zoom * aspectRatio
       y0 *= zoom
       rayDir = getCameraRayDir(x0, y0, camPos, camTarget)
       t = castRay(camPos, rayDir)
